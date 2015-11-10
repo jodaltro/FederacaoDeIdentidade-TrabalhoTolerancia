@@ -22,7 +22,7 @@ public class Main {
 		}
 		System.out.println("Criou na porta " + Nuvem.port);
 		Nuvem.nodoaux = Nuvem.nos.get(0);
-		new jgroups().start();
+		new jgroups().start("host");
 
 	}
 }
