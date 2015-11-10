@@ -12,11 +12,17 @@ package trabalhofinal;
  * @author kinst
  */
 public class Main {
-     public static void main(String[] args) throws Exception {
-        //cria o no inicial + 4 nos
-        Nuvem.createNetwork();
-        Nuvem.nodoaux = Nuvem.nos.get(0);
-        new jgroups().start();
-       
-    }
+	public static void main(String[] args) throws Exception {
+		de.uniba.wiai.lspi.chord.service.PropertiesLoader.loadPropertyFile();
+		Nuvem.chord = new de.uniba.wiai.lspi.chord.service.impl.ChordImpl();
+
+		while (!Nuvem.createNetwork()) {
+			Nuvem.port++;
+			System.out.println("Nao criou na porta " + Nuvem.port);
+		}
+		System.out.println("Criou na porta " + Nuvem.port);
+		Nuvem.nodoaux = Nuvem.nos.get(0);
+		new jgroups().start();
+
+	}
 }

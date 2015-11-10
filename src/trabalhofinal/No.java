@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 
 /**
  *
- * @author kinst
+ * @author Jodaltro
  */
 public class No {
     private URL localURL;
