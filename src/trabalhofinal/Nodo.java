@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * @author Jodaltro
  *
- * @author kinst
  */
 public class Nodo {
 
@@ -32,58 +32,8 @@ public class Nodo {
     public Nodo() {
         this.chord = null;
     }
-//    public static void main(String[] args) {
-//        de.uniba.wiai.lspi.chord.service.PropertiesLoader.
-//                loadPropertyFile();
-//        String protocol = URL.KNOWN_PROTOCOLS.get(URL.SOCKET_PROTOCOL);
-//        URL localURL = null;
-//        try {
-//            localURL = new URL(protocol + "://localhost:8181/");
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        URL bootstrapURL = null;
-//        try {
-//            bootstrapURL = new URL(protocol + "://localhost:8080/");
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        Chord chord = new de.uniba.wiai.lspi.chord.service.impl.ChordImpl();
-//        try {
-//            chord.join(localURL, bootstrapURL);
-//        } catch (ServiceException e) {
-//            throw new RuntimeException(" Could not join DHT !", e);
-//        }
-//        String nome,endereco;
-//        nome = JOptionPane.showInputDialog(null, "Entre com o nome do arquivo");
-//        endereco = JOptionPane.showInputDialog(null, "Entre com o local do arquivo");
-//        File origen = new File(endereco, nome);
-//        StringKey myKey = new StringKey(nome);
-//        try {
-//            chord.insert(myKey, origen);
-//        } catch (ServiceException ex) {
-//            Logger.getLogger(Nodo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try {
-//            endereco = JOptionPane.showInputDialog(null, "Entre com o novo local do arquivo");
-//            File destination = new File(endereco + origen.getName());
-//            destination.createNewFile();
-//            Set<Serializable> vals = chord.retrieve(myKey);
-//            Iterator<Serializable> it = vals.iterator();
-//            File t = null;
-//            while (it.hasNext()) {
-//                t = (File) it.next();
-//            }
-//            copyFile(t, destination);
-//           // chord.leave();
-//        } catch (ServiceException ex) {
-//            Logger.getLogger(Nodo.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Nodo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 
-    public void conectaNodo(int port) {
+    public void conectNodo(int port) {
         String protocol = URL.KNOWN_PROTOCOLS.get(URL.SOCKET_PROTOCOL);
         URL localURL = null;
         try {
@@ -99,7 +49,6 @@ public class Nodo {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-       // Chord chord = new de.uniba.wiai.lspi.chord.service.impl.ChordImpl();
         try {
             chord.join(localURL, bootstrapURL);
         } catch (ServiceException e) {

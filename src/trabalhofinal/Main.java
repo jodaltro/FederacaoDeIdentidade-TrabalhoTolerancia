@@ -13,18 +13,9 @@ package trabalhofinal;
  */
 public class Main {
      public static void main(String[] args) throws Exception {
-        //de.uniba.wiai.lspi.chord.service.PropertiesLoader.loadPropertyFile();
-        //Nuvem.chord = new de.uniba.wiai.lspi.chord.service.impl.ChordImpl();
-        //--------------
-        //String protocolo = URL.KNOWN_PROTOCOLS.get(URL.SOCKET_PROTOCOL);
-         
-        //-------------
         //cria o no inicial + 4 nos
-        Nuvem.criaRede();
+        Nuvem.createNetwork();
         Nuvem.nodoaux = Nuvem.nos.get(0);
-        /*while(true)
-        {
-        */
         new jgroups().start();
        
     }

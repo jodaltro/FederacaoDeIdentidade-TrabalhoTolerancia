@@ -26,7 +26,7 @@ import java.util.Set;
 public class Nuvem {
 
     public static ArrayList<No> nos;
-    private static int porta = 8080;
+    private static int port = 8080;
     private static URL bootstrapURL = null;
     public static No nodoaux = null;
     public static ChordImpl chord = null; 
@@ -34,39 +34,39 @@ public class Nuvem {
 
    
     
-    public static void novoUsuario(String usuario, String senha)
+    public static void newUser(String _user, String _password)
     {
        /* File arquivo = null;
         String dir = null;
         StringKey myKEY = null;*/
-        Usuario user = null;
-        user = new Usuario();
-            user.setNome(usuario);
-            user.setSenha(senha);
-            Nuvem.adicionaSenha(user, nodoaux);
+        User user = null;
+        user = new User();
+            user.setName(_user);
+            user.setPassword(_password);
+            Nuvem.addPassword(user, nodoaux);
     }
     
-    public static boolean criaRede()
+    public static boolean createNetwork()
     {
         de.uniba.wiai.lspi.chord.service.PropertiesLoader.loadPropertyFile();
         Nuvem.chord = new de.uniba.wiai.lspi.chord.service.impl.ChordImpl();
        nos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            nos.add(new No(porta, nNos));
-            if (porta == 8080) {
+            nos.add(new No(port, nNos));
+            if (port == 8080) {
                 bootstrapURL = nos.get(0).getAdress();
-                setRede(nos.get(0).getNo(), nos.get(0).getAdress());
+                setNetwork(nos.get(0).getNo(), nos.get(0).getAdress());
             } else {
                 setNodo(nos.get(i).getNo(), nos.get(i).getAdress(), bootstrapURL);
             }
             System.out.println("Criado No:" + (i) + " Porta:" + nos.get(i).getPorta() + " Id: " + nos.get(i).getID());
-            Nuvem.porta++;
+            Nuvem.port++;
             Nuvem.nNos++;
         }
         return true;
     }
 
-    public static void setRede(ChordImpl begin, URL url) {
+    public static void setNetwork(ChordImpl begin, URL url) {
         try {
             begin.create(url);
         } catch (ServiceException e) {
@@ -82,22 +82,22 @@ public class Nuvem {
         }
     }
     
-    public static void adicionaSenha(Usuario user, No no)
+    public static void addPassword(User user, No no)
     {
-        user.quebraSenha(user.criptografaSenha(user.getSenha()));
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt1());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt2());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt3());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt4());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt5());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt6());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt7());
-        no.getNo().insert(new StringKey(user.getNome()), user.getSenhaPt8());
-        no.getNo().insert(new StringKey(user.getSenha()), user.getSenhaPt8());
+        user.breakPassword(user.encryptPassword(user.getPassword()));
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt1());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt2());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt3());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt4());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt5());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt6());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt7());
+        no.getNo().insert(new StringKey(user.getName()), user.getPassPt8());
+        no.getNo().insert(new StringKey(user.getPassword()), user.getPassPt8());
     }
     
     @SuppressWarnings("resource")
-	public static void criaArquivo(File source, File destination) throws IOException {
+	public static void createArchive(File source, File destination) throws IOException {
         if (destination.exists()) {
             destination.delete();
         }
@@ -120,18 +120,31 @@ public class Nuvem {
         }
     }
 
-    //cria uma hash key a partir do nome
-    public StringKey getKey(String nome) {
-        return new StringKey(nome);
+    //
+    /**
+     * @param _name
+     * @return
+     * Create a hash key from a name of user
+     */
+    public StringKey getKey(String _name) {
+        return new StringKey(_name);
     }
     
-    public static String validaUsuario(String usuario, String senha ,Nodo no)
+    
+    /**
+     * @param _user
+     * @param _password
+     * @param no
+     * @return
+     * Method called by company that need validate a user in your system
+     */
+    public static String validateUser(String _user, String _password ,Nodo no)
     {
-        String codigo = null;
+        String codePass = null;
         String aux = null;
         String aux2 = null;
-        Usuario user = new Usuario();
-        StringKey myKey = new StringKey(usuario);
+        User user = new User();
+        StringKey myKey = new StringKey(_user);
         Set<Serializable> vals = null;
         vals = no.getChord().retrieve(myKey);
         Iterator<Serializable> it = vals.iterator();
@@ -140,40 +153,40 @@ public class Nuvem {
             aux2 = aux.substring(aux.length() - 1, aux.length());
             switch (aux2) {
                 case "1":
-                    user.setSenhaPt1(aux.substring(0, aux.length() - 1));
+                    user.setPassPt1(aux.substring(0, aux.length() - 1));
                     continue;
                 case "2":
-                    user.setSenhaPt2(aux.substring(0, aux.length() - 1));
+                    user.setPassPt2(aux.substring(0, aux.length() - 1));
                     continue;
                 case "3":
-                    user.setSenhaPt3(aux.substring(0, aux.length() - 1));
+                    user.setPassPt3(aux.substring(0, aux.length() - 1));
                     continue;
                 case "4":
-                    user.setSenhaPt4(aux.substring(0, aux.length() - 1));
+                    user.setPassPt4(aux.substring(0, aux.length() - 1));
                     continue;
                 case "5":
-                    user.setSenhaPt5(aux.substring(0, aux.length() - 1));
+                    user.setPassPt5(aux.substring(0, aux.length() - 1));
                     continue;
                 case "6":
-                    user.setSenhaPt6(aux.substring(0, aux.length() - 1));
+                    user.setPassPt6(aux.substring(0, aux.length() - 1));
                     continue;
                 case "7":
-                    user.setSenhaPt7(aux.substring(0, aux.length() - 1));
+                    user.setPassPt7(aux.substring(0, aux.length() - 1));
                     continue;
                 case "8":
-                    user.setSenhaPt8(aux.substring(0, aux.length() - 1));
+                    user.setPassPt8(aux.substring(0, aux.length() - 1));
                     continue;
             }
         }
-        if (user.juntaSenha().equals(user.criptografaSenha(senha))) {
-            myKey = new StringKey(senha);
+        if (user.unitePassword().equals(user.encryptPassword(_password))) {
+            myKey = new StringKey(_password);
             vals = no.getChord().retrieve(myKey);
             it = vals.iterator();
             while (it.hasNext()) {
-                codigo = (String) it.next();
+                codePass = (String) it.next();
                 break;
             }
         }
-        return codigo;
+        return codePass;
     }
 }

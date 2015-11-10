@@ -77,7 +77,7 @@ public class jgroups extends ReceiverAdapter {
                 String usuario = new Scanner(System.in).nextLine();
                 System.out.println("Senha:");
                 String senha = new Scanner(System.in).nextLine();
-                Nuvem.novoUsuario(usuario,senha);
+                Nuvem.newUser(usuario,senha);
                 for (int x = 0; x < Nuvem.nos.size(); x++) {
                             System.out.println("***No; " + Nuvem.nos.get(x).getIdAux());
                             System.out.println("-- " + Nuvem.nos.get(x).getID() + " " + Nuvem.nos.get(x).getAdress());
